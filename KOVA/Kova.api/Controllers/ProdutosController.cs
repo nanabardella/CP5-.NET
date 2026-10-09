@@ -1,3 +1,5 @@
+using Asp.Versioning;
+using Microsoft.AspNetCore.RateLimiting;
 using Kova.Application.DTOs;
 using Kova.Application.Interfaces.Repositories;
 using Kova.Application.Interfaces.Services;
@@ -8,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Kova.api.Controllers;
 
 [ApiController]
+[ApiVersion("1.0", Deprecated = true)]
+[ApiVersion("2.0")]
 [Route("api/produtos")]
 public sealed class ProdutosController(
     IProdutoRepository repository,
@@ -18,16 +22,23 @@ public sealed class ProdutosController(
     /// <response code="200">Produtos encontrados.</response>
     /// <response code="500">Erro interno ao consultar os produtos.</response>
     [HttpGet]
+    [MapToApiVersion("1.0")]
     [ProducesResponseType(typeof(IReadOnlyCollection<ProdutoResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public ActionResult<IReadOnlyCollection<ProdutoResponse>> GetAll()
     {
-        var response = repository.GetAll()
-            .Select(ToResponse)
-            .ToArray();
+        var response = service.GetAll();
 
         return Ok(response);
     }
+
+    /// <summary>Lista produtos com paginação (v2).</summary>
+    [HttpGet]
+    [MapToApiVersion("2.0")]
+    [ProducesResponseType(typeof(PagedResponse<ProdutoResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public ActionResult<PagedResponse<ProdutoResponse>> GetPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
+        => Ok(service.GetPaged(page, pageSize));
 
     /// <summary>Busca um produto pelo identificador.</summary>
     /// <response code="200">Produto encontrado.</response>
@@ -51,6 +62,8 @@ public sealed class ProdutosController(
     /// <response code="404">Categoria não encontrada.</response>
     /// <response code="500">Erro interno ao criar o produto.</response>
     [HttpPost]
+    [EnableRateLimiting("produto-write")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
     [ProducesResponseType(typeof(ProdutoResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]

@@ -1,6 +1,6 @@
 @Kova.api_HostAddress = http://localhost:5070
 
-GET {{Kova.api_HostAddress}}/weatherforecast/
+GET {{Kova.api_HostAddress}}/api/produtos?page=1&pageSize=20
 Accept: application/json
 
 ###

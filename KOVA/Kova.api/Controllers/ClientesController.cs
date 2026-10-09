@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kova.api.Controllers;
 
+[Asp.Versioning.ApiVersionNeutral]
 [ApiController]
 [Route("api/clientes")]
 public sealed class ClientesController(IClienteRepository repository) : ControllerBase

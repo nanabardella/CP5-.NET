@@ -1,9 +1,0 @@
-{
-  "status": "Unhealthy",
-  "totalDuration": "00:00:05.0000000",
-  "traceId": "00-exemplo",
-  "checks": [
-    { "name": "self", "status": "Healthy", "duration": "00:00:00.0010000", "description": null, "exception": null },
-    { "name": "database", "status": "Unhealthy", "duration": "00:00:05.0000000", "description": null, "exception": "Connection unavailable in Development" }
-  ]
-}

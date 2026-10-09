@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 using Microsoft.Extensions.DependencyInjection;
+using Oracle.EntityFrameworkCore;
  
 namespace Kova.Infrastructure;
  
@@ -22,7 +23,8 @@ public static class DependencyInjection
 
         services.AddDbContext<KovaDbContext>(options =>
 
-            options.UseOracle(configuration.GetConnectionString("KovaOracle")));
+            options.UseOracle(configuration.GetConnectionString("KovaOracle"), oracle =>
+                oracle.UseOracleSQLCompatibility(OracleSQLCompatibility.DatabaseVersion19)));
  
         services.AddScoped<IClienteRepository, ClienteRepository>();
 

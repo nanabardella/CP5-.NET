@@ -1,0 +1,9 @@
+HTTP 200
+Transfer-Encoding: chunked
+api-supported-versions: 2.0
+api-deprecated-versions: 1.0
+Content-Type: application/json; charset=utf-8
+Date: Fri, 09 Oct 2026 05:45:56 GMT
+Server: Kestrel
+
+{"page":2,"pageSize":2,"totalItems":4,"totalPages":2,"items":[{"id":"1ccefe10-02c2-4c6a-8d57-c71cff74eb1e","nome":"CP5-20261009054554-3","descricao":"Produto de demonstracao","preco":50,"categoriaId":"61b37f37-ede3-421e-955d-ea96dffc8026","active":true},{"id":"93f67160-b8cf-4460-b52c-629d9e770faa","nome":"CP5-20261009054554-4","descricao":"Produto de demonstracao","preco":50,"categoriaId":"61b37f37-ede3-421e-955d-ea96dffc8026","active":true}]}

@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:5070
+
+### Lista antiga por query
+GET {{baseUrl}}/api/produtos?api-version=1.0
+
+### Lista antiga por header
+GET {{baseUrl}}/api/produtos
+X-Api-Version: 1.0
+
+### Default v2, primeira página
+GET {{baseUrl}}/api/produtos?page=1&pageSize=2
+
+### Segunda página
+GET {{baseUrl}}/api/produtos?api-version=2.0&page=2&pageSize=2
+
+### Página inválida
+GET {{baseUrl}}/api/produtos?page=0
+
+### Tamanho inválido
+GET {{baseUrl}}/api/produtos?pageSize=9999
+
+### Página além do total
+GET {{baseUrl}}/api/produtos?page=2147483647&pageSize=100
+
+### Repetir 11 vezes dentro de um minuto para verificar 429 sem criar registros
+POST {{baseUrl}}/api/produtos
+Content-Type: application/json
+
+{}
+
+### Health após o 429
+GET {{baseUrl}}/health

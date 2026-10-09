@@ -10,6 +10,14 @@ public sealed class ProdutoService(
     IRepository<Produto> produtoRepository,
     IRepository<Categoria> categoriaRepository) : IProdutoService
 {
+    public IReadOnlyCollection<ProdutoResponse> GetAll() => produtoRepository.GetAll().Select(ToResponse).ToArray();
+    public PagedResponse<ProdutoResponse> GetPaged(int page = 1, int pageSize = 20)
+    {
+        var result = produtoRepository.GetPaged(new PageRequest(page, pageSize));
+        return new(result.Page, result.PageSize, result.TotalItems, result.TotalPages, result.Items.Select(ToResponse).ToArray());
+    }
+    private static ProdutoResponse ToResponse(Produto produto) =>
+        new(produto.Id, produto.Nome, produto.Descricao, produto.Preco, produto.CategoriaId, produto.Active);
     public ProdutoResponse Create(ProdutoRequest request)
     {
         if (!categoriaRepository.ExistsById(request.CategoriaId))

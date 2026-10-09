@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kova.api.Controllers;
 
+[Asp.Versioning.ApiVersionNeutral]
 [ApiController]
 [Route("api/categorias")]
 public sealed class CategoriasController(IRepository<Categoria> repository) : ControllerBase

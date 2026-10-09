@@ -1,0 +1,10 @@
+HTTP 201
+Transfer-Encoding: chunked
+api-supported-versions: 2.0
+api-deprecated-versions: 1.0
+Content-Type: application/json; charset=utf-8
+Date: Fri, 09 Oct 2026 05:45:55 GMT
+Location: http://localhost:5071/api/produtos/b45f7580-f72c-4ca5-9aa6-a0a56811d38b
+Server: Kestrel
+
+{"id":"b45f7580-f72c-4ca5-9aa6-a0a56811d38b","nome":"CP5-20261009054554-1","descricao":"Produto de demonstracao","preco":50,"categoriaId":"61b37f37-ede3-421e-955d-ea96dffc8026","active":true}
