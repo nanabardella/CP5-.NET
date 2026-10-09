@@ -6,7 +6,6 @@
 | ------------------------------ | ------ |
 | Erick Takeshi Andrade Nakajune | 566059 |
 | Giovanna Bardella Gomes        | 561439 |
-| Diogo Cunha Abrão de Oliveira  | 563654 |
 
 ---
 
